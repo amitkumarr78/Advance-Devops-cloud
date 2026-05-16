@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cluck & Flame | Chicken House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #120b08;
+      --panel: rgba(38, 22, 15, 0.82);
+      --panel-soft: rgba(255, 248, 241, 0.08);
+      --text: #fff6ee;
+      --muted: #d9c2b2;
+      --accent: #ff8a1d;
+      --accent-deep: #c94700;
+      --gold: #ffd17a;
+      --line: rgba(255, 255, 255, 0.12);
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 138, 29, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(201, 71, 0, 0.28), transparent 35%),
+        linear-gradient(180deg, #1b0e09 0%, #120b08 45%, #1a0d08 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: pageGlow 10s ease-in-out infinite alternate;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(14, 8, 6, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      color: #fff;
+      font-size: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-text h1 {
+      font-family: "Cinzel", serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-text p {
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 36px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-visual {
+      min-height: 620px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .hero-copy {
+      position: relative;
+      padding: 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background:
+        linear-gradient(180deg, rgba(17, 8, 5, 0.2), rgba(17, 8, 5, 0.92)),
+        url("https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      animation: heroReveal 1s ease-out both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--gold);
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .hero-copy h2 {
+      font-family: "Cinzel", serif;
+      font-size: clamp(2.8rem, 6vw, 5.1rem);
+      line-height: 1.02;
+      max-width: 8ch;
+      margin-bottom: 18px;
+      animation: fadeUp 0.95s ease-out 0.12s both;
+    }
+
+    .hero-copy p {
+      max-width: 560px;
+      color: #f6ded0;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      animation: fadeUp 1s ease-out 0.24s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+      animation: fadeUp 1s ease-out 0.34s both;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #ff5b1f);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      animation: fadeUp 1s ease-out 0.48s both;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 209, 122, 0.24);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(24, 11, 8, 0.08), rgba(24, 11, 8, 0.7)),
+        url("https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      animation: heroReveal 1.1s ease-out 0.15s both;
+    }
+
+    .floating-card {
+      position: absolute;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .floating-card.top {
+      top: 26px;
+      right: 26px;
+      width: min(280px, calc(100% - 52px));
+      animation: floatCard 4.8s ease-in-out infinite;
+    }
+
+    .floating-card.bottom {
+      left: 26px;
+      right: 26px;
+      bottom: 26px;
+      animation: floatCard 5.6s ease-in-out infinite 0.6s;
+    }
+
+    .floating-card small {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.74rem;
+    }
+
+    .floating-card h3 {
+      font-size: 1.4rem;
+      margin: 10px 0 10px;
+    }
+
+    .floating-card p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .floating-card ul {
+      list-style: none;
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .floating-card li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: #ffe7d2;
+      font-size: 0.93rem;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    .section-head h3 {
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-top: 6px;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .dish-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      animation: fadeUp 0.9s ease-out both;
+    }
+
+    .dish-card:nth-child(2) {
+      animation-delay: 0.12s;
+    }
+
+    .dish-card:nth-child(3) {
+      animation-delay: 0.24s;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 209, 122, 0.25);
+      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.42);
+    }
+
+    .dish-card img {
+      height: 270px;
+      transition: transform 0.6s ease;
+    }
+
+    .dish-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .dish-copy {
+      padding: 22px;
+    }
+
+    .dish-copy .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .dish-copy h4 {
+      font-size: 1.2rem;
+    }
+
+    .price {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .dish-copy p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.94rem;
+    }
+
+    .story-banner {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .story-image,
+    .story-copy {
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.95s ease-out both;
+    }
+
+    .story-copy {
+      animation-delay: 0.18s;
+    }
+
+    .story-image img {
+      height: 100%;
+      min-height: 450px;
+      transition: transform 0.7s ease;
+    }
+
+    .story-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .story-copy {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+      padding: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-copy h3 {
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 12px 0 16px;
+    }
+
+    .story-copy p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .feature {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 0.9fr;
+      gap: 18px;
+    }
+
+    .gallery-grid img {
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      height: 280px;
+      transition: transform 0.45s ease, box-shadow 0.45s ease, filter 0.45s ease;
+      animation: fadeUp 0.95s ease-out both;
+    }
+
+    .gallery-grid img:nth-child(2) {
+      animation-delay: 0.12s;
+    }
+
+    .gallery-grid img:nth-child(3) {
+      animation-delay: 0.24s;
+    }
+
+    .gallery-grid img:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45);
+      filter: saturate(1.1);
+    }
+
+    .cta {
+      padding-bottom: 48px;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(255, 138, 29, 0.16), rgba(201, 71, 0, 0.12)),
+        rgba(255, 255, 255, 0.05);
+      animation: fadeUp 1s ease-out both;
+    }
+
+    .cta-box::before,
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+    }
+
+    .cta-box::before {
+      width: 220px;
+      height: 220px;
+      background: rgba(255, 209, 122, 0.1);
+      top: -70px;
+      right: -40px;
+      animation: pulseGlow 5s ease-in-out infinite;
+    }
+
+    .cta-box::after {
+      width: 160px;
+      height: 160px;
+      background: rgba(255, 91, 31, 0.16);
+      bottom: -40px;
+      left: -20px;
+      animation: pulseGlow 6s ease-in-out infinite 0.4s;
+    }
+
+    .cta-box h3 {
+      position: relative;
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin: 10px 0 16px;
+    }
+
+    .cta-box p {
+      position: relative;
+      color: #ffe5d7;
+      max-width: 700px;
+      line-height: 1.8;
+      margin-bottom: 26px;
+    }
+
+    .footer {
+      padding: 0 0 36px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes floatCard {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+      50% {
+        transform: scale(1.12);
+        opacity: 0.55;
+      }
+    }
+
+    @keyframes pageGlow {
+      from {
+        background-position: 0% 0%, 100% 0%, 0% 0%;
+      }
+      to {
+        background-position: 4% 2%, 96% 3%, 0% 0%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .story-banner,
+      .gallery-grid,
+      .signature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .hero-copy {
+        padding: 38px 24px;
+      }
+
+      .story-copy,
+      .cta-box {
+        padding: 30px 22px;
+      }
+
+      .hero-stats,
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner,
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        gap: 12px;
+      }
+
+      .hero-copy h2 {
+        max-width: 100%;
+      }
+
+      .floating-card.top,
+      .floating-card.bottom {
+        position: static;
+        width: auto;
+        margin: 16px;
+      }
+
+      .hero-visual {
+        padding: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">C</div>
+        <div class="brand-text">
+          <h1>Cluck & Flame</h1>
+          <p>Chicken Only Kitchen</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#menu">Signature Chicken</a>
+        <a href="#story">Our Fire</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reserve">Reserve</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Pure Non-Veg Chicken Experience</span>
+          <h2>Smoky Chicken. Rich Fire. Royal Taste.</h2>
+          <p>
+            Ek premium chicken restaurant front page jahan har dish sirf non-veg chicken lovers ke liye design ki gayi hai.
+            Deep warm background, bold presentation, aur luxury dining vibe ke saath yeh landing page instantly appetite build karta hai.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#reserve">Book A Table</a>
+            <a class="btn btn-secondary" href="#menu">Explore Menu</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>15+</strong>
+              <span>Signature chicken specials</span>
+            </div>
+            <div class="stat">
+              <strong>4.9/5</strong>
+              <span>Guest love for taste & ambience</span>
+            </div>
+            <div class="stat">
+              <strong>Live Grill</strong>
+              <span>Charcoal roast and juicy finish</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="floating-card top">
+            <small>Chef Recommendation</small>
+            <h3>Flame Roast Crown Chicken</h3>
+            <p>
+              Slow marinated, open-flame finished, aur buttery spice glaze ke saath ek showstopper platter.
+            </p>
+          </div>
+
+          <div class="floating-card bottom">
+            <small>Tonight's Popular Picks</small>
+            <ul>
+              <li><span>Tandoori Fire Wings</span> <strong>₹420</strong></li>
+              <li><span>Royal Butter Chicken Bowl</span> <strong>₹540</strong></li>
+              <li><span>Smoked Peri Peri Leg Feast</span> <strong>₹610</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Signature Menu</span>
+          <h3>Chicken Dishes That Steal The Table</h3>
+        </div>
+        <p>
+          Sirf chicken-based dishes rakhe gaye hain, taaki restaurant ka theme clear, focused, aur premium lage.
+          Har card mein strong food photography aur warm earthy tones use kiye gaye hain.
+        </p>
+      </div>
+
+      <div class="signature-grid">
+        <article class="dish-card">
+          <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=1200&q=80" alt="Grilled chicken platter">
+          <div class="dish-copy">
+            <div class="meta">
+              <h4>Charcoal Grill Platter</h4>
+              <span class="price">₹690</span>
+            </div>
+            <p>
+              Juicy grilled chicken cuts with roasted peppers, herbed butter glaze, aur smoky finish jo premium platter feel deta hai.
+            </p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=1200&q=80" alt="Butter chicken bowl">
+          <div class="dish-copy">
+            <div class="meta">
+              <h4>Royal Butter Chicken</h4>
+              <span class="price">₹520</span>
+            </div>
+            <p>
+              Rich tomato-butter gravy, soft chicken pieces, aur luxurious golden finish jo Indian chicken lovers ko instantly attract kare.
+            </p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=1200&q=80" alt="Spicy chicken wings">
+          <div class="dish-copy">
+            <div class="meta">
+              <h4>Inferno Wings Basket</h4>
+              <span class="price">₹430</span>
+            </div>
+            <p>
+              Crispy spicy wings with glossy glaze, bold texture, aur party-style serving jo front page ko energetic banati hai.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="story-banner">
+        <div class="story-image">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=80" alt="Chef plating chicken dish">
+        </div>
+        <div class="story-copy">
+          <span class="eyebrow">The House Style</span>
+          <h3>Dark Ambience, Fiery Palette, Chicken-Centered Identity</h3>
+          <p>
+            Background colors ko deep brown, ember orange, aur soft gold tones mein रखा gaya hai taaki restaurant page luxury aur hunger dono feel karaye.
+            Yeh combination especially chicken grill, roast aur butter-based dishes ke saath visually perfect lagta hai.
+          </p>
+          <div class="feature-list">
+            <div class="feature">
+              <strong>Background Tone</strong>
+              <span>Warm dark gradients jo food ko brighter aur richer dikhate hain.</span>
+            </div>
+            <div class="feature">
+              <strong>Image Style</strong>
+              <span>Close-up, high-detail chicken photography with premium plating.</span>
+            </div>
+            <div class="feature">
+              <strong>Color Accent</strong>
+              <span>Orange and gold CTA colors for appetite and luxury vibe.</span>
+            </div>
+            <div class="feature">
+              <strong>Theme Focus</strong>
+              <span>Only non-veg chicken content for a clean, strong brand message.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Visual Feast</span>
+          <h3>Gallery Full Of Chicken Cravings</h3>
+        </div>
+        <p>
+          Yeh section page ko premium banata hai aur instantly restaurant photography style showcase karta hai.
+        </p>
+      </div>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1200&q=80" alt="Chicken platter on table">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Chicken roast closeup">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Chicken meal with sides">
+      </div>
+    </section>
+
+    <section class="cta" id="reserve">
+      <div class="cta-box">
+        <span class="eyebrow">Reserve Your Table</span>
+        <h3>For Those Who Want Chicken Served Like A Celebration</h3>
+        <p>
+          Call now for chef specials, smoky grill platters, aur late-night chicken cravings.
+          Yeh front page ek premium chicken restaurant ke liye ready hai aur directly demo ya project submission mein use ho sakta hai.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tel:+910000000000">Call For Booking</a>
+          <a class="btn btn-secondary" href="mailto:hello@cluckandflame.com">Email Restaurant</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Cluck & Flame • Chicken Only • Crafted for a rich non-veg restaurant front page
+  </footer>
+</body>
+</html>
