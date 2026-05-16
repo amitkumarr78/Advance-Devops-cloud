@@ -33,14 +33,15 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                sh '''
-                kubectl set image deployment/website \
-                website=${ECR_REPO}:${IMAGE_TAG}
+    steps {
+        sh '''
+        kubectl set image deployment/website \
+        website=884576820568.dkr.ecr.us-west-2.amazonaws.com/website:${BUILD_NUMBER}
 
-                kubectl rollout status deployment/website
-                '''
-            }
-        }
+        kubectl rollout status deployment/website
+        '''
+    }
+}
+        
     }
 }
