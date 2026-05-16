@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Image') {
+        stage('Build Image') {
             steps {
                 dir('website') {
                     sh 'docker build -t website:v1 .'
@@ -11,9 +11,15 @@ pipeline {
             }
         }
 
-        stage('Run Test') {
+        stage('Tag Image') {
             steps {
-                sh 'docker images'
+                sh 'docker tag website:v1 884576820568.dkr.ecr.us-west-2.amazonaws.com/website:v1'
+            }
+        }
+
+        stage('Push ECR') {
+            steps {
+                sh 'docker push 884576820568.dkr.ecr.us-west-2.amazonaws.com/website:v1'
             }
         }
     }
