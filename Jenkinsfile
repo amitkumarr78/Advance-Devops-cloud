@@ -1,4 +1,4 @@
-pipeline {
+pipeline {   // Taking it out from folder to show properly
     agent any
 
     environment {
