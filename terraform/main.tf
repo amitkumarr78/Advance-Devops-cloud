@@ -30,6 +30,10 @@ module "monitoring" {
 
   instance_id = module.compute.public_instance_id
 }
+
 module "EKS" {
   source = "./modules/EKS"
+
+  public_subnet_1 = module.vpc.public_subnet_1_id
+  public_subnet_2 = module.vpc.public_subnet_2_id
 }
