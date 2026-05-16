@@ -32,11 +32,13 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+      stage('Deploy') {
     steps {
         sh '''
+        export KUBECONFIG=/var/lib/jenkins/.kube/config
+
         kubectl set image deployment/website \
-        website=884576820568.dkr.ecr.us-west-2.amazonaws.com/website:${BUILD_NUMBER}
+        website=884576820568.dkr.ecr.us-west-2.amazonaws.com/website:${IMAGE_TAG}
 
         kubectl rollout status deployment/website
         '''
