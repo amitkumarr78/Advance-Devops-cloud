@@ -5,7 +5,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t website:v1 .'
+                dir('website') {
+                    sh 'docker build -t website:v1 .'
+                }
             }
         }
 
