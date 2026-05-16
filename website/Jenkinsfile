@@ -18,9 +18,13 @@ pipeline {
         }
 
         stage('Push ECR') {
-            steps {
-                sh 'docker push 884576820568.dkr.ecr.us-west-2.amazonaws.com/website:v1'
-            }
-        }
+    steps {
+        sh '''
+        aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 884576820568.dkr.ecr.us-west-2.amazonaws.com
+
+        docker push 884576820568.dkr.ecr.us-west-2.amazonaws.com/website:v1
+        '''
+    }
+}
     }
 }
