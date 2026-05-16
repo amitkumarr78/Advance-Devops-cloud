@@ -32,17 +32,16 @@
     }
 
     body {
-  font-family: "Manrope", sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(111, 66, 193, 0.28), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 170, 255, 0.25), transparent 35%),
-    linear-gradient(180deg, #0b1020 0%, #141b35 45%, #1d294f 100%);
-    
-  min-height: 100vh;
-  overflow-x: hidden;
-  animation: pageGlow 10s ease-in-out infinite alternate;
-}
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 138, 29, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(201, 71, 0, 0.28), transparent 35%),
+        linear-gradient(180deg, #1b0e09 0%, #120b08 45%, #1a0d08 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: pageGlow 10s ease-in-out infinite alternate;
+    }
 
     img {
       display: block;
@@ -467,13 +466,13 @@
       padding: 16px;
       border-radius: 20px;
       background: var(--panel-soft);
-      border: 1px solid rgba(150, 6, 6, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .feature:hover {
       transform: translateY(-4px);
-      background: rgba(75, 34, 209, 0.1);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .feature strong {
@@ -512,7 +511,7 @@
 
     .gallery-grid img:hover {
       transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 24px 52px rgba(177, 9, 9, 0.45);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45);
       filter: saturate(1.1);
     }
 
@@ -525,10 +524,10 @@
       overflow: hidden;
       border-radius: 34px;
       padding: 46px;
-      border: 1px solid rgba(213, 15, 15, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: var(--shadow);
       background:
-        linear-gradient(135deg, rgba(255, 138, 29, 0.16), rgba(62, 69, 62, 0.12)),
+        linear-gradient(135deg, rgba(255, 138, 29, 0.16), rgba(201, 71, 0, 0.12)),
         rgba(255, 255, 255, 0.05);
       animation: fadeUp 1s ease-out both;
     }
