@@ -1,5 +1,6 @@
 # Advanced Infrastructure + DevOps End-to-End CI/CD Project
 ## 📌 Project Overview
+<img width="1536" height="1024" alt="blueprint" src="https://github.com/user-attachments/assets/0a83cad9-812f-4902-be03-ca666809ad21" />
 
 This project demonstrates a complete end-to-end DevOps workflow using modern cloud and automation tools. The goal was to build a production-style CI/CD pipeline where code changes automatically move from development to deployment with infrastructure provisioning, containerization, Kubernetes orchestration, and monitoring.
 Instead of manually configuring cloud resources and deploying applications, the entire process was automated.
@@ -472,7 +473,7 @@ Prometheus
       ↓
 Grafana
 ```
- <img width="1109" height="621" alt="Screenshot 2026-05-17 143425" src="https://github.com/user-attachments/assets/15b976bd-b4a0-4c74-93e9-3c5db40d7545" />
+<img width="1536" height="1024" alt="blueprint" src="https://github.com/user-attachments/assets/05820162-7093-4303-9608-ec7425f5d30b" />
 
 ---
 
