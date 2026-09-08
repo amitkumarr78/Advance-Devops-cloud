@@ -3,7 +3,7 @@ pipeline {   // Taking it out from folder to show properly
 
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
-        ECR_REPO = "884576820568.dkr.ecr.us-west-2.amazonaws.com/website"
+        ECR_REPO = "#######124.dkr.ecr.us-west-2.amazonaws.com/website"
     }
 
     stages {
@@ -25,7 +25,7 @@ pipeline {   // Taking it out from folder to show properly
         stage('Push ECR') {
             steps {
                 sh '''
-                aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 884576820568.dkr.ecr.us-west-2.amazonaws.com
+                aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin #######124.dkr.ecr.us-west-2.amazonaws.com
 
                 docker push ${ECR_REPO}:${IMAGE_TAG}
                 '''
@@ -38,7 +38,7 @@ pipeline {   // Taking it out from folder to show properly
         export KUBECONFIG=/var/lib/jenkins/.kube/config
 
         kubectl set image deployment/website \
-        website=884576820568.dkr.ecr.us-west-2.amazonaws.com/website:${IMAGE_TAG}
+        website=#######124.dkr.ecr.us-west-2.amazonaws.com/website:${IMAGE_TAG}
 
         kubectl rollout status deployment/website
         '''
